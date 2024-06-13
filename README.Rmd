@@ -1,0 +1,101 @@
+---
+output: github_document
+---
+
+```{r, include = FALSE}
+knitr::opts_chunk$set(
+  collapse = TRUE,
+  comment = "#>",
+  fig.path = "man/figures/README-",
+  out.width = "100%"
+)
+
+library(koordinatr)
+library(dotenv) # only needed for github readme
+api_key <- Sys.getenv("API_KEY") # authenticate
+```
+
+# koordinatr
+
+<!-- badges: start -->
+[![Lifecycle: experimental](https://img.shields.io/badge/lifecycle-experimental-orange.svg)](https://lifecycle.r-lib.org/articles/stages.html#experimental)
+[![CRAN status](https://www.r-pkg.org/badges/version/koordinatr)](https://CRAN.R-project.org/package=koordinatr)
+<!-- badges: end -->
+
+The goal of koordinatr is to provide API access to spatial and tabular data from various New Zealand government agencies which use a Koordinates data service. 
+
+## Installation
+
+You can install the development version of koordinatr like so:
+
+``` r
+# install.packages("devtools")
+devtools::install_github("isaacbain/koordinatr")
+```
+
+## Usage
+### Authenticate 
+
+To use the package, you will need to authenticate with an API key. These can be obtained from the respective agencies' websites. 
+
+``` r
+library(koordinatr)
+
+api_key <- "your_api_key"
+```
+
+### Fetch a spatial layer
+
+This is a basic example which uses the `get_layer_as_sf` function to fetch a spatial layer from LINZ and return it as an `sf` object. 
+
+- `agency` should be one of "linz", "statsnz", "mfe". Or "custom" if you want to manually specify the URL for the service. 
+
+- `id` should be the ID of the layer you want to fetch.
+
+
+```{r, results='hide', dpi=300}
+# libraries
+library(ggplot2)
+
+# get spatial layer from Stats NZ
+result_sf <- get_layer_as_sf(api_key,
+                             agency = "mfe",
+                             id = "118263")
+
+# map
+ggplot() +
+  geom_sf(data = result_sf, aes(fill = LUCID_2020), colour = NA) +
+  scale_fill_viridis_d() +
+  theme_bw() +
+  labs(title = "LUCAS Chatham Islands \nLand Use Map 2020") +
+  theme(legend.position = "none") +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1))
+
+
+# get spatial layer from custom url
+
+result_sf2 <- get_layer_as_sf(api_key,
+                              agency = "custom",
+                              id = "48157",
+                              custom_url = "https://lris.scinfo.org.nz/services;key=")
+
+ggplot() +
+  geom_sf(data = result_sf2, aes(fill = Series_1), colour = NA) +
+  scale_fill_viridis_d() +
+  theme_bw() +
+  labs(title = "Soil map for the Upper Plains and Downs of Canterbury") +
+  theme(legend.position = "none")
+```
+
+### Fetch a table
+
+This is a basic example which uses the `get_table_as_tibble` function to fetch a table from MfE and return it as a `tibble`.
+
+```{r, message=FALSE}
+# get tables
+result_tibble <- get_table_as_tibble(api_key,
+                                     agency = "mfe",
+                                     id = "53606")
+
+knitr::kable(result_tibble[1:10, 1:5])
+```

@@ -1,0 +1,20 @@
+Package: koordinatr
+Title: API Access to Koordinates Data Services
+Version: 0.0.0.9000
+Authors@R: 
+    person("Isaac", "Bain", , "isaacbain@gmail.com", role = c("aut", "cre"),
+           comment = c(ORCID = "0000-0002-6755-3721"))
+Description: An R package for accessing Koordinates data services. Koordinates is a data management platform for geospatial data. This package provides an interface to the Koordinates API, allowing users to search for and download data from Koordinates.
+License: MIT + file LICENSE
+Suggests: 
+    testthat (>= 3.0.0)
+Config/testthat/edition: 3
+Encoding: UTF-8
+Roxygen: list(markdown = TRUE)
+RoxygenNote: 7.3.1
+URL: https://github.com/isaacbain/koordinatr
+BugReports: https://github.com/isaacbain/koordinatr/issues
+Imports: 
+    dplyr,
+    httr,
+    sf
