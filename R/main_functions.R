@@ -52,6 +52,9 @@ get_layer_as_sf <- function(api_key, agency, id, custom_url = NULL) {
     sf_object <- sf::st_cast(sf_object, "GEOMETRYCOLLECTION") |>
       sf::st_collection_extract("LINESTRING")  |>
       sf::st_cast("POLYGON")
+  } else if (geom_type == "COMPOUNDCURVE") {
+    sf_object <- st_cast(sf_object, "GEOMETRYCOLLECTION") |>
+      st_collection_extract("LINESTRING")
   }
 
   return(sf_object)
