@@ -60,6 +60,7 @@ get_layer_as_sf <- function(api_key, agency, id, custom_url = NULL) {
   return(sf_object)
 }
 
+
 #' Get a table and return it as a tibble
 #'
 #' @param api_key The API key for the agency
