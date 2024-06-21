@@ -35,6 +35,21 @@ library(koordinatr)
 api_key <- "your_api_key"
 ```
 
+Alternatively, you can also store your API key in your .Renviron file,
+so you don’t have to go looking for it each time. First edit your
+.Renviron file with the following command:
+
+``` r
+usethis::edit_r_environ()
+```
+
+Then you can add your API key like so (referring to it as whatever you
+called it in the step above):
+
+``` r
+get_layer_as_sf(api_key = Sys.getenv("koordinates_api_key") # or whatever you called it
+```
+
 ### Fetch a spatial layer
 
 This is a basic example which uses the `get_layer_as_sf` function to
@@ -49,8 +64,8 @@ fetch a spatial layer from LINZ and return it as an `sf` object.
 # libraries
 library(ggplot2)
 
-# get spatial layer from Stats NZ
-result_sf <- get_layer_as_sf(api_key,
+# get spatial layer from MfE
+result_sf <- get_layer_as_sf(Sys.getenv("mfe_api_key"),
                              agency = "mfe",
                              id = "118263")
 
@@ -71,7 +86,7 @@ ggplot() +
 
 # get spatial layer from custom url
 
-result_sf2 <- get_layer_as_sf(api_key,
+result_sf2 <- get_layer_as_sf(Sys.getenv("lris_api_key"),
                               agency = "custom",
                               id = "48157",
                               custom_url = "https://lris.scinfo.org.nz/services;key=")
@@ -93,8 +108,7 @@ fetch a table from MfE and return it as a `tibble`.
 
 ``` r
 # get tables
-
-result_tibble <- get_table_as_tibble(api_key,
+result_tibble <- get_table_as_tibble(Sys.getenv("mfe_api_key"),
                                      agency = "mfe",
                                      id = "53606")
 
