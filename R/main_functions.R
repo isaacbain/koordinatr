@@ -108,3 +108,71 @@ get_table_as_tibble <- function(api_key, agency, id, custom_url = NULL) {
 
   return(data)
 }
+
+#' Get regional boundaries
+#'
+#' @param api_key Set your API key for Stats NZ
+#'
+#' @return A Sf object
+#' @export
+#'
+#' @examples
+get_regions_layer <- function(api_key) {
+  # Define the layer ID for the regions
+  layer_id <- "111181"
+
+  # Fetch the layer using the given API key and layer ID
+  regions_layer <- get_layer_as_sf(api_key = api_key,
+                                   agency = "statsnz",
+                                   id = layer_id)
+
+  return(regions_layer)
+}
+
+#' Get coastlines layer
+#'
+#' @param api_key Set your API key for LINZ
+#' @param layer_type The type of layer to get. Options are 'polygon' or 'line'
+#'
+#' @return A Sf object
+#' @export
+#'
+#' @examples
+get_coastline_layer <- function(api_key, layer_type = c("polygon", "line")) {
+  # Ensure the layer_type is one of the allowed values
+  layer_type <- match.arg(layer_type)
+
+  # Choose the appropriate layer ID based on the layer_type
+  if (layer_type == "line") {
+    layer_id <- "50258"
+  } else if (layer_type == "polygon") {
+    layer_id <- "51153"
+  }
+
+  # Fetch the layer using the appropriate ID
+  coastline_layer <- get_layer_as_sf(api_key = api_key,
+                                     agency = "linz",
+                                     id = layer_id)
+
+  return(coastline_layer)
+}
+
+#' Get sea-draining catchments layer
+#'
+#' @param api_key Set your API key for MfE
+#'
+#' @return A Sf object
+#' @export
+#'
+#' @examples
+get_catchments_layer <- function(api_key) {
+  # Define the layer ID for the regions
+  layer_id <- "99776"
+
+  # Fetch the layer using the given API key and layer ID
+  regions_layer <- get_layer_as_sf(api_key = api_key,
+                                   agency = "mfe",
+                                   id = layer_id)
+
+  return(regions_layer)
+}

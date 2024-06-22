@@ -109,3 +109,45 @@ result_tibble <- get_table_as_tibble(Sys.getenv("mfe_api_key"),
 
 knitr::kable(result_tibble[1:10, 1:5])
 ```
+
+## Wrapper functions
+
+The package also includes some wrapper functions which make it easier to fetch *some* commonly used layers.
+
+### Regions
+
+`get_regions_layer()` fetches the 2023 generalised clipped regional council boundaries layer from Stats NZ. 
+
+```{r}
+regions <- get_regions_layer(api_key = Sys.getenv("koordinates_api_key"))
+
+ggplot() +
+  geom_sf(data = regions, fill = "lightblue", colour = "black") +
+  theme_void()
+```
+
+### Coastline
+
+`get_coastline_layer()` fetches either the 1:50k topo polyline or polygon from LINZ. You can set `layer_type` to either "line" or "polygon".
+
+```{r}
+coastline <- get_coastline_layer(api_key = Sys.getenv("linz_api_key"),
+                                 layer_type = "polygon")
+
+ggplot() +
+  geom_sf(data = coastline) +
+  theme_void()
+```
+
+### Catchments
+
+`get_catchments_layer()` fetches the sea-draining catchments layer from MfE. 
+
+```{r}
+catchments <- get_catchments_layer(api_key = Sys.getenv("mfe_api_key"))
+
+ggplot() +
+  geom_sf(data = catchments, colour = "black", linewidth = 0.1) +
+  theme(legend.position = "none") +
+  theme_void()
+```

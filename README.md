@@ -127,3 +127,89 @@ knitr::kable(result_tibble[1:10, 1:5])
 | table-53606.8  | Austria     | Moderate      | 3/11/2005  | 46.00%          |
 | table-53606.9  | Aviemore    | High          | 8/04/2015  | 62.00%          |
 | table-53606.10 | B           | Non-vegetated | 1/02/2007  | 0.00%           |
+
+## Wrapper functions
+
+The package also includes some wrapper functions which make it easier to
+fetch *some* commonly used layers.
+
+### Regions
+
+`get_regions_layer()` fetches the 2023 generalised clipped regional
+council boundaries layer from Stats NZ.
+
+``` r
+regions <- get_regions_layer(api_key = Sys.getenv("koordinates_api_key"))
+#> Reading layer `datafinder.stats.govt.nz:layer-111181' from data source 
+#>   `https://datafinder.stats.govt.nz/services;key=dd78f0283b414914ab22d13f2770fbe0/wfs/layer-111181/?service=WFS&request=GetCapabilities' 
+#>   using driver `WFS'
+#> Simple feature collection with 17 features and 8 fields
+#> Geometry type: MULTISURFACE
+#> Dimension:     XY
+#> Bounding box:  xmin: 1089970 ymin: 4747987 xmax: 2470102 ymax: 6223156
+#> Projected CRS: NZGD2000 / New Zealand Transverse Mercator 2000
+```
+
+``` r
+
+ggplot() +
+  geom_sf(data = regions, fill = "lightblue", colour = "black") +
+  theme_void()
+```
+
+<img src="man/figures/README-unnamed-chunk-4-1.png" width="100%" />
+
+### Coastline
+
+`get_coastline_layer()` fetches either the 1:50k topo polyline or
+polygon from LINZ. You can set `layer_type` to either “line” or
+“polygon”.
+
+``` r
+coastline <- get_coastline_layer(api_key = Sys.getenv("linz_api_key"),
+                                 layer_type = "polygon")
+#> Reading layer `data.linz.govt.nz:layer-51153' from data source 
+#>   `https://data.linz.govt.nz/services;key=d0a74083759843229e65947888902509/wfs/layer-51153/?service=WFS&request=GetCapabilities' 
+#>   using driver `WFS'
+#> Simple feature collection with 9121 features and 8 fields
+#> Geometry type: CURVEPOLYGON
+#> Dimension:     XY
+#> Bounding box:  xmin: 165.869 ymin: -52.62088 xmax: 183.8457 ymax: -29.23134
+#> Geodetic CRS:  NZGD2000
+```
+
+``` r
+
+ggplot() +
+  geom_sf(data = coastline) +
+  theme_void()
+```
+
+<img src="man/figures/README-unnamed-chunk-5-1.png" width="100%" />
+
+### Catchments
+
+`get_catchments_layer()` fetches the sea-draining catchments layer from
+MfE.
+
+``` r
+catchments <- get_catchments_layer(api_key = Sys.getenv("mfe_api_key"))
+#> Reading layer `data.mfe.govt.nz:layer-99776' from data source 
+#>   `https://data.mfe.govt.nz/services;key=86387251050a4f149ef69abecd04d308/wfs/layer-99776/?service=WFS&request=GetCapabilities' 
+#>   using driver `WFS'
+#> Simple feature collection with 10131 features and 4 fields
+#> Geometry type: MULTISURFACE
+#> Dimension:     XY
+#> Bounding box:  xmin: 1090080 ymin: 4748607 xmax: 2089398 ymax: 6193865
+#> Projected CRS: NZGD2000 / New Zealand Transverse Mercator 2000
+```
+
+``` r
+
+ggplot() +
+  geom_sf(data = catchments, colour = "black", linewidth = 0.1) +
+  theme(legend.position = "none") +
+  theme_void()
+```
+
+<img src="man/figures/README-unnamed-chunk-6-1.png" width="100%" />

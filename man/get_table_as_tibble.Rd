@@ -9,7 +9,7 @@ get_table_as_tibble(api_key, agency, id, custom_url = NULL)
 \arguments{
 \item{api_key}{The API key for the agency}
 
-\item{agency}{The agency from which to get the table. Options are 'mfe', 'linz', or 'custom'}
+\item{agency}{The agency from which to get the table. Options are 'mfe', 'linz', 'stats', or 'custom'}
 
 \item{id}{The ID of the table to get}
 

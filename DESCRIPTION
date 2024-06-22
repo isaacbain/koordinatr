@@ -1,6 +1,6 @@
 Package: koordinatr
 Title: API Access to Koordinates Data Services
-Version: 0.0.0.9000
+Version: 0.0.0.9001
 Authors@R: 
     person("Isaac", "Bain", , "isaacbain@gmail.com", role = c("aut", "cre"),
            comment = c(ORCID = "0000-0002-6755-3721"))
