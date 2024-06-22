@@ -10,7 +10,7 @@ get_catchments_layer(api_key)
 \item{api_key}{Set your API key for MfE}
 }
 \value{
-A SF object
+A Sf object
 }
 \description{
 Get sea-draining catchments layer

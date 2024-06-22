@@ -12,7 +12,7 @@ get_coastline_layer(api_key, layer_type = c("polygon", "line"))
 \item{layer_type}{The type of layer to get. Options are 'polygon' or 'line'}
 }
 \value{
-A SF object
+A Sf object
 }
 \description{
 Get coastlines layer

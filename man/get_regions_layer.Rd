@@ -10,7 +10,7 @@ get_regions_layer(api_key)
 \item{api_key}{Set your API key for Stats NZ}
 }
 \value{
-A SF object
+A Sf object
 }
 \description{
 Get regional boundaries

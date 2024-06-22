@@ -43,7 +43,14 @@ so you don’t have to go looking for it each time. First edit your
 usethis::edit_r_environ()
 ```
 
-Then you can add your API key like so (referring to it as whatever you
+Add a line similar to this with your API key to the .Renviron file, save
+the .Renviron file and restart your R session:
+
+``` r
+koordinates_api_key="paste_your_api_key_here"
+```
+
+Then you can use your API key like so (referring to it as whatever you
 called it in the step above):
 
 ``` r
